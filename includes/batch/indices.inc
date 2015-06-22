@@ -86,7 +86,7 @@ function _biological_taxonomy_batch_index_finished($success, $results, array $op
 /**
  * Batch Operation callback: Create a single index in the ITIS database.
  */
-function _bt_index_add($table_name, $index_name, array $columns, &$context) {
+function _biological_taxonomy_index_add($table_name, $index_name, array $columns, &$context) {
   require_once drupal_get_path('module', 'biological_taxonomy') .
     '/includes/itis/db.inc';
 
