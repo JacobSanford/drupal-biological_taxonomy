@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Create a structured biological taxonomy from an ITIS database.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function biological_taxonomy_menu() {
+  $t = get_t();
+  $items = array();
+
+  $items['admin/config/biological_taxonomy'] = array(
+    'title' => $t('Biological Taxonomy'),
+    'description' => $t('Parent menu item for biological taxonomy menus.'),
+    'position' => 'right',
+    'weight' => -100,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer site configuration'),
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  $items['admin/config/biological_taxonomy/build'] = array(
+    'title' => 'Create a Biological Taxonomy',
+    'description' => 'Build a biological taxonomy from an ITIS database.',
+    'page callback' => '_biological_taxonomy_render_admin_page',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'forms/biological_taxonomy_build.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function biological_taxonomy_libraries_info() {
+  $t = get_t();
+  $libraries = array();
+
+  $libraries['itis'] = array(
+    'name' => $t('ITIS Data File'),
+    'vendor url' => 'http://www.itis.gov/downloads/',
+    'download url' => 'http://www.itis.gov/downloads/itisSqlite.zip',
+    'version callback' => '_biological_taxonomy_check_itis_valid',
+    'files' => array(
+      'js' => array(
+        'ITIS.sqlite',
+      ),
+    ),
+
+  );
+
+  return $libraries;
+}

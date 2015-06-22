@@ -1,0 +1,67 @@
+<?php
+/**
+ * @file
+ * Definition of BiologicalTaxonomyImportPageTest.
+ */
+
+/**
+ * Basic test for import page and authentication.
+ */
+class BiologicalTaxonomyImportPageTest extends DrupalWebTestCase {
+  /**
+   * Implements hook_getInfo().
+   */
+  public static function getInfo() {
+    $t = get_t();
+
+    return array(
+      'name' => $t('Import Page'),
+      'description' => $t('Tests the biological_taxonomy import page.'),
+      'group' => $t('Biological Taxonomy'),
+    );
+  }
+
+  /**
+   * Implements hook_setUp().
+   */
+  public function setUp() {
+    parent::setUp(
+      array(
+        'taxonomy',
+        'entity',
+        'libraries',
+        'biological_taxonomy',
+      )
+    );
+  }
+
+  /**
+   * Tests admin import page as anonymous user.
+   */
+  public function testAdminItisImportPageAnon() {
+    $this->drupalGet('admin/config/biological_taxonomy/build');
+    $this->assertText('not authorized');
+  }
+
+  /**
+   * Tests admin import page as admin user.
+   */
+  public function testAdminItisImportPageAdmin() {
+    $user = $this->drupalCreateAdminUser();
+    $this->drupalLogin($user);
+    $this->drupalGet('admin/config/biological_taxonomy/build');
+    $this->assertText('ITIS Database not valid');
+  }
+
+  /**
+   * Create user with administrative permissions.
+   */
+  public function drupalCreateAdminUser() {
+    $roles = user_roles();
+    $index = array_search('administrator', $roles);
+    $user = $this->drupalCreateUser(array());
+    $user->roles[$index] = 'administrator';
+    return user_save($user);
+  }
+
+}

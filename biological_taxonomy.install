@@ -1,0 +1,100 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the biological_taxonomy module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function biological_taxonomy_install() {
+  variable_set('biological_taxonomy_current_import_vid', NULL);
+  variable_set('biological_taxonomy_current_import_vocab_name', NULL);
+  variable_set('biological_taxonomy_sqlite_path', DRUPAL_ROOT .
+    '/sites/all/libraries/itis/ITIS.sqlite'
+  );
+  _biological_taxonomy_create_required_fields();
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Field bases are intentionally not removed here, as it will allow created
+ * taxonomies to exist after module is uninstalled.
+ */
+function biological_taxonomy_uninstall() {
+  variable_del('biological_taxonomy_current_import_vid');
+  variable_del('biological_taxonomy_current_import_vocab_name');
+  variable_del('biological_taxonomy_sqlite_path');
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function biological_taxonomy_requirements($phase) {
+  require_once 'includes/itis/db.inc';
+
+  $t = get_t();
+  $requirements = array();
+
+  $itis_download_url = 'http://www.itis.gov/downloads/itisSqlite.zip';
+  $itis_download_html = "<a href=\"$itis_download_url\">$itis_download_url</a>";
+  $itis_donwload_files = 'ITIS.sqlite';
+  $itis_target_html = '<em>/sites/all/libraries/itis/</em>';
+
+  $install_instructions = $t(
+    'Please download it from @downloadhtml and extract the @itisfilename file into @itistargetlocation',
+    array(
+      '@downloadhtml' => $itis_download_html,
+      '@itisfilename' => $itis_donwload_files,
+      '@itistargetlocation' => $itis_target_html,
+    )
+  );
+
+  if (!_biological_taxonomy_pdo_sqlite_exists()) {
+    $requirements['biological_taxonomy'] = array(
+      'title' => $t('Biological Taxonomy'),
+      'value' => NULL,
+      'description' => $t('ERROR : The PHP installation does not support PDO SQLite (3.x).'),
+      'severity' => REQUIREMENT_ERROR,
+    );
+  }
+
+  if ($phase == 'runtime') {
+    $library = libraries_detect('itis');
+    if ($library === FALSE || !empty($library['error'])) {
+      $requirements['biological_taxonomy'] = array(
+        'title' => $t('Biological Taxonomy'),
+        'value' => $t('Not Found'),
+        'description' => $library['error message'] . ' ' . $install_instructions,
+        'severity' => REQUIREMENT_ERROR,
+      );
+    }
+    else {
+      $requirements['biological_taxonomy'] = array(
+        'title' => $t('Biological Taxonomy'),
+        'value' => $t('Ready for Import'),
+        'description' => $t('The ITIS database has been found and a biological taxonomy is ready to be created.'),
+        'severity' => REQUIREMENT_OK,
+      );
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Create base fields required for vocabulary term instances.
+ */
+function _biological_taxonomy_create_required_fields() {
+  if (!field_info_field('tax_imported_tsn')) {
+    $field = array(
+      'field_name' => 'tax_imported_tsn',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'cardinality' => '1',
+    );
+    field_create_field($field);
+  }
+}

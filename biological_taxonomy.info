@@ -1,0 +1,10 @@
+name = Biological Taxonomy
+description = Builds a biological taxonomy from an ITIS database.
+core = 7.x
+configure = admin/config/biological_taxonomy
+
+dependencies[] = taxonomy
+dependencies[] = entity
+dependencies[] = libraries
+
+files[] = tests/import_page.test
