@@ -54,3 +54,23 @@ function biological_taxonomy_libraries_info() {
 
   return $libraries;
 }
+
+/**
+ * Implements hook_help().
+ */
+function biological_taxonomy_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#biological_taxonomy':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module provides functionality to build a hierarchical biological taxonomy sourced from the <a href="@itisurl">ITIS database</a>.', array('@itisurl' => 'http://www.itis.gov/')) . '</p>';
+      $output .= '<p>' . t('Depending on the options selected, the created taxonomy could be enormous. Extremely large taxonomies can have adverse effects on Drupal.') . '</p>';
+      $output .= '<p>' . t('As with all hierarchical taxonomy trees, a module such as <a href="@taxman">taxonomy_manager</a> is recommended for use in managing the resultant vocabulary.', array('@taxman' => 'https://www.drupal.org/project/taxonomy_manager')) . '</p>';
+      $output .= '<h3>' . t('Installation') . '</h3>';
+      $output .= '<ol>';
+      $output .= '<li>' . t('Download the Full ITIS Data Set SQLite database (<a href="@itis">@itis</a>) and extract the <em>ITIS.sqlite</em> file into <em>/sites/all/libraries/itis/</em>.</li>', array('@itis' => 'http://www.itis.gov/downloads/')) . '</li>';
+      $output .= '<li>' . t('Enable the module, then browse to <a href="/@bioadminpath">@bioadminpath</a>', array('@bioadminpath' => 'admin/config/biological_taxonomy/build')) . '</li>';
+      $output .= '</ol>';
+      return $output;
+  }
+}
