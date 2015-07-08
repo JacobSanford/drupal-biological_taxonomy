@@ -12,8 +12,8 @@ function biological_taxonomy_menu() {
   $items = array();
 
   $items['admin/config/biological_taxonomy'] = array(
-    'title' => t('Biological Taxonomy'),
-    'description' => t('Parent menu item for biological taxonomy menus.'),
+    'title' => 'Biological Taxonomy',
+    'description' => 'Parent menu item for biological taxonomy menus.',
     'position' => 'right',
     'weight' => -100,
     'page callback' => 'system_admin_menu_block_page',
