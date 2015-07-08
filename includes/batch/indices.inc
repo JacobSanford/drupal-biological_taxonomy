@@ -17,16 +17,15 @@ require_once drupal_get_path('module', 'biological_taxonomy') .
  * @see _biological_taxonomy_batch_index_finished()
  */
 function _biological_taxonomy_batch_create_indices() {
-  $t = get_t();
   $_SESSION['index_http_request_count'] = 0;
 
   $batch = array(
     'operations' => _biological_taxonomy_batch_index_operations(),
     'finished' => '_biological_taxonomy_batch_index_finished',
-    'title' => $t('Creating Supplemental Database Indices'),
-    'init_message' => $t('Creating additional ITIS database indices.'),
-    'progress_message' => $t('Created @current out of @total indices.'),
-    'error_message' => $t('Additional ITIS database index creation has encountered an error.'),
+    'title' => t('Creating Supplemental Database Indices'),
+    'init_message' => t('Creating additional ITIS database indices.'),
+    'progress_message' => t('Created @current out of @total indices.'),
+    'error_message' => t('Additional ITIS database index creation has encountered an error.'),
     'file' => drupal_get_path('module', 'biological_taxonomy') . '/includes/batch/indices.inc',
 
   );
@@ -58,11 +57,9 @@ function _biological_taxonomy_batch_index_operations() {
  * Implements callback_batch_finished().
  */
 function _biological_taxonomy_batch_index_finished($success, $results, array $operations) {
-  $t = get_t();
-
   if ($success) {
     drupal_set_message(
-      $t(
+      t(
         '@requests indices were added to the ITIS database.',
         array(
           '@requests' => _biological_taxonomy_batch_index_get_requests(),
@@ -73,7 +70,7 @@ function _biological_taxonomy_batch_index_finished($success, $results, array $op
   else {
     $error_operation = reset($operations);
     drupal_set_message(
-      $t('An error occurred while processing @operation with arguments : @args',
+      t('An error occurred while processing @operation with arguments : @args',
         array(
           '@operation' => $error_operation[0],
           '@args' => print_r($error_operation[0], TRUE),
@@ -90,12 +87,10 @@ function _biological_taxonomy_index_add($table_name, $index_name, array $columns
   require_once drupal_get_path('module', 'biological_taxonomy') .
     '/includes/itis/db.inc';
 
-  $t = get_t();
-
   $itis_dbh = _biological_taxonomy_get_dbh();
   _biological_taxonomy_create_index($itis_dbh, $table_name, $index_name, $columns);
 
-  $context['message'] = $t('Created index "@indexname"', array('@indexname' => $index_name));
+  $context['message'] = t('Created index "@indexname"', array('@indexname' => $index_name));
   _biological_taxonomy_batch_index_update_requests();
 }
 

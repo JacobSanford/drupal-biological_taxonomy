@@ -30,12 +30,10 @@ require_once drupal_get_path('module', 'biological_taxonomy') .
  * @see _biological_taxonomy_batch_taxon_finished()
  */
 function _biological_taxonomy_batch_import_taxons($kingdom_id_selected, $bottom_limit_selected, $only_valid_accepted_selected, $vocabulary_name, $vocabulary_machine_name, $number_taxons) {
-  $t = get_t();
-
   $new_tax_vocab = _biological_taxonomy_create_vocabulary($vocabulary_name, $vocabulary_machine_name);
 
   drupal_set_message(
-    $t('Created a new vocabulary (@macnam:@vid)',
+    t('Created a new vocabulary (@macnam:@vid)',
       array(
         '@macnam' => $vocabulary_machine_name,
         '@vid' => $new_tax_vocab->vid,
@@ -53,10 +51,10 @@ function _biological_taxonomy_batch_import_taxons($kingdom_id_selected, $bottom_
       $only_valid_accepted_selected
     ),
     'finished' => '_biological_taxonomy_batch_taxon_finished',
-    'title' => $t('Creating taxonomy Terms'),
-    'init_message' => $t('Creating a structured taxonomy from the ITIS data.'),
-    'progress_message' => $t('Created @current out of @total terms.'),
-    'error_message' => $t('Biological taxonomy creation has encountered an error.'),
+    'title' => t('Creating taxonomy Terms'),
+    'init_message' => t('Creating a structured taxonomy from the ITIS data.'),
+    'progress_message' => t('Created @current out of @total terms.'),
+    'error_message' => t('Biological taxonomy creation has encountered an error.'),
     'file' => drupal_get_path('module', 'biological_taxonomy') . '/includes/batch/taxons.inc',
   );
 
@@ -101,7 +99,6 @@ function _biological_taxonomy_batch_taxon_operations($kingdom_id_selected, $bott
  * Implements callback_batch_finished().
  */
 function _biological_taxonomy_batch_taxon_finished($success, $results, array $operations) {
-  $t = get_t();
   $vocab_machine_name = variable_get('biological_taxonomy_current_import_vocab_name');
 
   variable_del('biological_taxonomy_current_import_vid');
@@ -109,7 +106,7 @@ function _biological_taxonomy_batch_taxon_finished($success, $results, array $op
 
   if ($success) {
     drupal_set_message(
-      $t('@requests taxonomy terms were built into a taxonomy tree.',
+      t('@requests taxonomy terms were built into a taxonomy tree.',
         array(
           '@requests' => _biological_taxonomy_batch_taxon_get_requests(),
         )
@@ -120,7 +117,7 @@ function _biological_taxonomy_batch_taxon_finished($success, $results, array $op
   else {
     $error_operation = reset($operations);
     drupal_set_message(
-      $t('An error occurred while processing @operation with arguments : @args',
+      t('An error occurred while processing @operation with arguments : @args',
         array(
           '@operation' => $error_operation[0],
           '@args' => print_r($error_operation[0], TRUE),
@@ -138,8 +135,6 @@ function _biological_taxonomy_batch_taxon_finished($success, $results, array $op
  * generate. Here be dragons.
  */
 function _bt_4dd($tsn, &$context) {
-  $t = get_t();
-
   $itis_dbh = _biological_taxonomy_get_dbh();
   $cur_term = _biological_taxonomy_get_tax_term($itis_dbh, $tsn);
   $vid = variable_get('biological_taxonomy_current_import_vid', NULL);
@@ -161,7 +156,7 @@ function _bt_4dd($tsn, &$context) {
   $term_wrapper->tax_imported_tsn->set((int) $tsn);
   $term_wrapper->save();
 
-  $context['message'] = $t(
+  $context['message'] = t(
     'Created taxonomy term "@title"',
     array(
       '@title' => $cur_term['complete_name'],

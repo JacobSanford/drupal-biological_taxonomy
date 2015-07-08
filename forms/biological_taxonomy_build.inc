@@ -16,8 +16,6 @@ function biological_taxonomy_build_form($form, &$form_state) {
   require_once drupal_get_path('module', 'biological_taxonomy') .
     '/includes/itis/db.inc';
 
-  $t = get_t();
-
   if (empty($form)) {
     $form = array();
   }
@@ -30,10 +28,10 @@ function biological_taxonomy_build_form($form, &$form_state) {
 
   $form['biological_taxonomy_top_level_kingdom'] = array(
     '#type' => 'select',
-    '#title' => $t('Top Level Kingdom'),
+    '#title' => t('Top Level Kingdom'),
     '#options' => $options_top_level_kingdom,
     '#default_value' => $kingdom_selected,
-    '#description' => $t('Select the kingdom to serve as the top level taxon in the new taxonomy.'),
+    '#description' => t('Select the kingdom to serve as the top level taxon in the new taxonomy.'),
     '#required' => TRUE,
     '#ajax' => array(
       'callback' => '_biological_taxonomy_update_limit_num_items',
@@ -50,12 +48,12 @@ function biological_taxonomy_build_form($form, &$form_state) {
 
   $form['biological_taxonomy_bottom_limit'] = array(
     '#type' => 'select',
-    '#title' => $t('Stop Populating Taxonomy At:'),
+    '#title' => t('Stop Populating Taxonomy At:'),
     '#prefix' => '<div id="bottom-limit-wrapper">',
     '#suffix' => '</div>',
     '#options' => $options_taxonomy_bottom_limit,
     '#default_value' => $bottom_limit_selected,
-    '#description' => $t('Select the rank level below which the taxonomy tree will not be populated.'),
+    '#description' => t('Select the rank level below which the taxonomy tree will not be populated.'),
     '#required' => TRUE,
     '#ajax' => array(
       'callback' => '_biological_taxonomy_update_bottom_limit',
@@ -68,7 +66,7 @@ function biological_taxonomy_build_form($form, &$form_state) {
 
   $form['biological_taxonomy_limit_valid_accepted'] = array(
     '#type' => 'checkbox',
-    '#title' => $t('Only include valid/accepted taxons'),
+    '#title' => t('Only include valid/accepted taxons'),
     '#prefix' => '<div id="valid-accepted-wrapper">',
     '#suffix' => '</div>',
     '#default_value' => $only_valid_accepted_selected,
@@ -87,7 +85,7 @@ function biological_taxonomy_build_form($form, &$form_state) {
   $form['biological_taxonomy_number_taxons_label'] = array(
     '#prefix' => '<div id="number-items-label-wrapper"><p>',
     '#suffix' => '</p></div>',
-    '#markup' => $t('With this configuration, approximately @numitems taxon classifications will be imported.',
+    '#markup' => t('With this configuration, approximately @numitems taxon classifications will be imported.',
       array(
         '@numitems' => number_format(floatval($num_items_to_import)),
       )
@@ -106,7 +104,7 @@ function biological_taxonomy_build_form($form, &$form_state) {
     '';
   $form['biological_taxonomy_name'] = array(
     '#type' => 'textfield',
-    '#title' => $t('Name of Taxonomy to Create'),
+    '#title' => t('Name of Taxonomy to Create'),
     '#default_value' => $taxonomy_name_value,
     '#maxlength' => 255,
     '#required' => TRUE,
@@ -126,7 +124,7 @@ function biological_taxonomy_build_form($form, &$form_state) {
 
   $form['biological_taxonomy_build_submit'] = array(
     '#type' => 'submit',
-    '#value' => $t('Build Taxonomy from ITIS Data'),
+    '#value' => t('Build Taxonomy from ITIS Data'),
   );
 
   $form['#submit'][] = 'biological_taxonomy_build_form_submit';

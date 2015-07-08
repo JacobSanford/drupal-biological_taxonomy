@@ -18,11 +18,9 @@ require_once 'indices.inc';
  *   The vocabulary object that was created.
  */
 function _biological_taxonomy_create_vocabulary($vocabulary_name, $vocabulary_machine_name) {
-  $t = get_t();
-
   $vocabulary = array(
     'name' => $vocabulary_name,
-    'description' => $t('Biological Taxonomy Imported from ITIS Database'),
+    'description' => t('Biological Taxonomy Imported from ITIS Database'),
     'machine_name' => $vocabulary_machine_name,
   );
 
@@ -32,7 +30,7 @@ function _biological_taxonomy_create_vocabulary($vocabulary_name, $vocabulary_ma
 
   $new_tax_instances = array(
     'tax_imported_tsn' => array(
-      'label' => $t('TSN from ITIS Database'),
+      'label' => t('TSN from ITIS Database'),
       'field_name' => 'tax_imported_tsn',
       'widget' => array(
         'type' => 'text_textfield',

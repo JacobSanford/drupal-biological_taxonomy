@@ -12,12 +12,10 @@ class BiologicalTaxonomyImportPageTest extends DrupalWebTestCase {
    * Implements hook_getInfo().
    */
   public static function getInfo() {
-    $t = get_t();
-
     return array(
-      'name' => $t('Import Page'),
-      'description' => $t('Tests the biological_taxonomy import page.'),
-      'group' => $t('Biological Taxonomy'),
+      'name' => t('Import Page'),
+      'description' => t('Tests the biological_taxonomy import page.'),
+      'group' => t('Biological Taxonomy'),
     );
   }
 
