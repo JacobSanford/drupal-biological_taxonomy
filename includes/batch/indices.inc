@@ -92,7 +92,7 @@ function _biological_taxonomy_batch_index_finished($success, $results, array $op
  * @param array $context
  *   The current batch import context associative array.
  */
-function _biological_taxonomy_index_add($table_name, $index_name, array $columns, &$context) {
+function _biological_taxonomy_index_add($table_name, $index_name, array $columns, array &$context) {
   require_once drupal_get_path('module', 'biological_taxonomy') .
     '/includes/itis/db.inc';
 
