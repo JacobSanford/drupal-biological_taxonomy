@@ -38,14 +38,13 @@ function biological_taxonomy_requirements($phase) {
   $requirements = array();
 
   $itis_download_url = 'http://www.itis.gov/downloads/itisSqlite.zip';
-  $itis_download_html = "<a href=\"$itis_download_url\">$itis_download_url</a>";
   $itis_donwload_files = 'ITIS.sqlite';
-  $itis_target_html = '<em>/sites/all/libraries/itis/</em>';
+  $itis_target_html = '/sites/all/libraries/itis/';
 
   $install_instructions = $t(
-    'Please download it from @downloadhtml and extract the @itisfilename file into @itistargetlocation',
+    'Please download it from <a href="@downloadurl">@downloadurl</a> and extract the @itisfilename file into <em>@itistargetlocation</em>',
     array(
-      '@downloadhtml' => $itis_download_html,
+      '@downloadurl' => $itis_download_url,
       '@itisfilename' => $itis_donwload_files,
       '@itistargetlocation' => $itis_target_html,
     )
