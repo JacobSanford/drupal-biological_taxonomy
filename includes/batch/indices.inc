@@ -82,6 +82,15 @@ function _biological_taxonomy_batch_index_finished($success, $results, array $op
 
 /**
  * Batch Operation callback: Create a single index in the ITIS database.
+ *
+ * @param string $table_name
+ *   The name of the table to create the index within.
+ * @param string $index_name
+ *   The name of the index to create.
+ * @param array $columns
+ *   An ordered array containing the columns to create the index on.
+ * @param array $context
+ *   The current batch import context associative array.
  */
 function _biological_taxonomy_index_add($table_name, $index_name, array $columns, &$context) {
   require_once drupal_get_path('module', 'biological_taxonomy') .
