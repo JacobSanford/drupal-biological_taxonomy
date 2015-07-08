@@ -163,9 +163,9 @@ function _biological_taxonomy_render_admin_page() {
   require_once drupal_get_path('module', 'biological_taxonomy') .
     '/includes/itis/db.inc';
 
-  $itis_dbh = _biological_taxonomy_get_dbh();
   $library = libraries_detect('itis');
   if (empty($library['error'])) {
+    $itis_dbh = _biological_taxonomy_get_dbh();
     if (!_biological_taxonomy_verify_indices($itis_dbh)) {
       require_once drupal_get_path('module', 'biological_taxonomy') .
         '/includes/batch/indices.inc';
