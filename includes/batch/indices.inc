@@ -42,7 +42,7 @@ function _biological_taxonomy_batch_index_operations() {
   $operations = array();
   foreach (_biological_taxonomy_get_db_indices() as $cur_index) {
     $operations[] = array(
-      '_bt_index_add',
+      '_biological_taxonomy_index_add',
       array(
         $cur_index['table'],
         $cur_index['name'],
