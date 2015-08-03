@@ -164,7 +164,7 @@ function _biological_taxonomy_render_admin_page() {
   if (empty($library['error'])) {
     $itis_dbh = _biological_taxonomy_get_dbh();
     if (!_biological_taxonomy_verify_indices($itis_dbh)) {
-      BIOLOGICAL_TAXONOMY_PATH . '/includes/batch/indices.inc';
+      require_once BIOLOGICAL_TAXONOMY_PATH . '/includes/batch/indices.inc';
 
       $_SESSION['http_request_count'] = 0;
 
