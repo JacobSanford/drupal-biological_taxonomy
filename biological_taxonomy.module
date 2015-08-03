@@ -50,7 +50,6 @@ function biological_taxonomy_libraries_info() {
         'ITIS.sqlite',
       ),
     ),
-
   );
 
   return $libraries;
