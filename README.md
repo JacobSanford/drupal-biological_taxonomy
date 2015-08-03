@@ -1,5 +1,8 @@
 Drupal Biological Taxonomy
 =============
+
+[![Build Status](https://travis-ci.org/JacobSanford/drupal-biological_taxonomy.svg)](https://travis-ci.org/JacobSanford/drupal-biological_taxonomy)
+
 This module provides functionality to build a tree based biological taxonomy
 sourced from the ITIS database (http://www.itis.gov/downloads/). It leverages:
 
