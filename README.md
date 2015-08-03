@@ -18,6 +18,8 @@ recommended for use in conjunction with this one.
 
 Installation
 -----------
+This module requires PDO SQLite (3.x or above) be installed.
+
 Before enabling, unzip and place the ITIS.sqlite and file into /sites/all/itis/.
 
 New contributions/issue reports welcomed.
