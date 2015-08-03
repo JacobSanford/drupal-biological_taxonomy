@@ -4,8 +4,7 @@
  * Batch API functionality for importing a vocabulary from an ITIS database.
  */
 
-require_once drupal_get_path('module', 'biological_taxonomy') .
-  '/includes/itis/db.inc';
+require_once BIOLOGICAL_TAXONOMY_PATH . '/includes/itis/db.inc';
 
 /**
  * Batch callback: Generate definition to import a vocabulary from an ITIS DB.
@@ -55,7 +54,7 @@ function _biological_taxonomy_batch_import_taxons($kingdom_id_selected, $bottom_
     'init_message' => t('Creating a structured taxonomy from the ITIS data.'),
     'progress_message' => t('Created @current out of @total terms.'),
     'error_message' => t('Biological taxonomy creation has encountered an error.'),
-    'file' => drupal_get_path('module', 'biological_taxonomy') . '/includes/batch/taxons.inc',
+    'file' => BIOLOGICAL_TAXONOMY_PATH . '/includes/batch/taxons.inc',
   );
 
   return $batch;

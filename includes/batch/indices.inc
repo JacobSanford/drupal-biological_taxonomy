@@ -4,8 +4,7 @@
  * Batch API functionality for adding indices to an ITIS database file.
  */
 
-require_once drupal_get_path('module', 'biological_taxonomy') .
-  '/includes/itis/db.inc';
+require_once BIOLOGICAL_TAXONOMY_PATH . '/includes/itis/db.inc';
 
 /**
  * Batch callback: Generate batch definition for adding indices to ITIS DB.
@@ -26,7 +25,7 @@ function _biological_taxonomy_batch_create_indices() {
     'init_message' => t('Creating additional ITIS database indices.'),
     'progress_message' => t('Created @current out of @total indices.'),
     'error_message' => t('Additional ITIS database index creation has encountered an error.'),
-    'file' => drupal_get_path('module', 'biological_taxonomy') . '/includes/batch/indices.inc',
+    'file' => BIOLOGICAL_TAXONOMY_PATH . '/includes/batch/indices.inc',
 
   );
   return $batch;
@@ -36,8 +35,7 @@ function _biological_taxonomy_batch_create_indices() {
  * Implements callback_batch_operations().
  */
 function _biological_taxonomy_batch_index_operations() {
-  require_once drupal_get_path('module', 'biological_taxonomy') .
-    '/includes/itis/db.inc';
+  require_once BIOLOGICAL_TAXONOMY_PATH . '/includes/itis/db.inc';
 
   $operations = array();
   foreach (_biological_taxonomy_get_db_indices() as $cur_index) {
@@ -93,8 +91,7 @@ function _biological_taxonomy_batch_index_finished($success, $results, array $op
  *   The current batch import context associative array.
  */
 function _biological_taxonomy_index_add($table_name, $index_name, array $columns, array &$context) {
-  require_once drupal_get_path('module', 'biological_taxonomy') .
-    '/includes/itis/db.inc';
+  require_once BIOLOGICAL_TAXONOMY_PATH . '/includes/itis/db.inc';
 
   $itis_dbh = _biological_taxonomy_get_dbh();
   _biological_taxonomy_create_index($itis_dbh, $table_name, $index_name, $columns);

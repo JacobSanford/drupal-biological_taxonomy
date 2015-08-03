@@ -13,8 +13,7 @@
  * @see biological_taxonomy_build_form_submit()
  */
 function biological_taxonomy_build_form($form, &$form_state) {
-  require_once drupal_get_path('module', 'biological_taxonomy') .
-    '/includes/itis/db.inc';
+  require_once BIOLOGICAL_TAXONOMY_PATH . '/includes/itis/db.inc';
 
   if (empty($form)) {
     $form = array();
@@ -136,8 +135,7 @@ function biological_taxonomy_build_form($form, &$form_state) {
  * Form submission handler for biological_taxonomy_build_form().
  */
 function biological_taxonomy_build_form_submit($form, &$form_state) {
-  require_once drupal_get_path('module', 'biological_taxonomy') .
-    '/includes/batch/taxons.inc';
+  require_once BIOLOGICAL_TAXONOMY_PATH . '/includes/batch/taxons.inc';
 
   batch_set(
     _biological_taxonomy_batch_import_taxons(
@@ -160,15 +158,13 @@ function biological_taxonomy_build_form_submit($form, &$form_state) {
  * @see hook_menu()
  */
 function _biological_taxonomy_render_admin_page() {
-  require_once drupal_get_path('module', 'biological_taxonomy') .
-    '/includes/itis/db.inc';
+  require_once BIOLOGICAL_TAXONOMY_PATH . '/includes/itis/db.inc';
 
   $library = libraries_detect('itis');
   if (empty($library['error'])) {
     $itis_dbh = _biological_taxonomy_get_dbh();
     if (!_biological_taxonomy_verify_indices($itis_dbh)) {
-      require_once drupal_get_path('module', 'biological_taxonomy') .
-        '/includes/batch/indices.inc';
+      BIOLOGICAL_TAXONOMY_PATH . '/includes/batch/indices.inc';
 
       $_SESSION['http_request_count'] = 0;
 

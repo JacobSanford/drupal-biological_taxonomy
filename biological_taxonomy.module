@@ -6,6 +6,11 @@
  */
 
 /**
+ * Define the core module path for later use.
+ */
+define('BIOLOGICAL_TAXONOMY_PATH', drupal_get_path('module', 'biological_taxonomy'));
+
+/**
  * Implements hook_menu().
  */
 function biological_taxonomy_menu() {
