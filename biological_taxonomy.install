@@ -10,8 +10,8 @@
 function biological_taxonomy_install() {
   variable_set('biological_taxonomy_current_import_vid', NULL);
   variable_set('biological_taxonomy_current_import_vocab_name', NULL);
-  variable_set('biological_taxonomy_sqlite_path', DRUPAL_ROOT .
-    '/sites/all/libraries/itis/ITIS.sqlite'
+  variable_set('biological_taxonomy_sqlite_path',
+    DRUPAL_ROOT . '/' . libraries_get_path('itis') . '/ITIS.sqlite'
   );
   _biological_taxonomy_create_required_fields();
 }

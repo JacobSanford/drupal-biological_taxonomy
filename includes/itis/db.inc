@@ -184,8 +184,8 @@ function _biological_taxonomy_get_num_taxons($itis_dbh, $kingdom_name_selected, 
  */
 function _biological_taxonomy_get_dbh() {
   $itis_pdo_path = 'sqlite:' .
-    variable_get('biological_taxonomy_sqlite_path', DRUPAL_ROOT .
-      '/sites/all/libraries/itis/ITIS.sqlite'
+    variable_get('biological_taxonomy_sqlite_path',
+      DRUPAL_ROOT . '/' . libraries_get_path('itis') . '/ITIS.sqlite'
     );
   return new PDO($itis_pdo_path);
 }
